@@ -1,0 +1,48 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html {
+  scroll-behavior: smooth;
+}
+
+@layer base {
+  body {
+    @apply font-lato text-wood-900 bg-cream-100;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 px-8 py-3.5
+           bg-wood-600 text-cream-100 font-lato font-semibold text-sm tracking-widest uppercase
+           border-2 border-wood-600 hover:bg-transparent hover:text-wood-600
+           transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-whatsapp {
+    @apply inline-flex items-center justify-center gap-2.5 px-8 py-3.5
+           bg-[#25D366] text-white font-lato font-semibold text-sm tracking-widest uppercase
+           border-2 border-[#25D366] hover:bg-transparent hover:text-[#25D366]
+           transition-all duration-300 cursor-pointer;
+  }
+
+  .btn-outline-cream {
+    @apply inline-flex items-center justify-center px-8 py-3.5
+           bg-transparent text-cream-100 font-lato font-semibold text-sm tracking-widest uppercase
+           border-2 border-cream-100 hover:bg-cream-100 hover:text-wood-800
+           transition-all duration-300 cursor-pointer;
+  }
+
+  .section-tag {
+    @apply inline-block font-lato text-xs tracking-[0.25em] uppercase text-wood-500 mb-3;
+  }
+
+  .section-title {
+    @apply font-playfair text-3xl md:text-4xl lg:text-5xl text-wood-800 leading-tight;
+  }
+
+  .section-title-light {
+    @apply font-playfair text-3xl md:text-4xl lg:text-5xl text-cream-100 leading-tight;
+  }
+}
