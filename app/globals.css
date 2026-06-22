@@ -46,3 +46,238 @@ html {
     @apply font-playfair text-3xl md:text-4xl lg:text-5xl text-cream-100 leading-tight;
   }
 }
+
+/* ─────────────────────────────────────────────────────────────
+   SCROLL REVEAL SYSTEM
+   html.ready activates animations — prevents SSR flash of invisible content
+───────────────────────────────────────────────────────────── */
+html.ready [data-reveal] {
+  opacity: 0;
+  transform: translateY(36px);
+  transition:
+    opacity   0.85s cubic-bezier(0.16, 1, 0.3, 1),
+    transform 0.85s cubic-bezier(0.16, 1, 0.3, 1);
+}
+html.ready [data-reveal="left"]  { transform: translateX(-36px); }
+html.ready [data-reveal="right"] { transform: translateX(36px); }
+html.ready [data-reveal="scale"] { transform: scale(0.88); }
+html.ready [data-reveal="fade"]  { transform: none; }
+
+html.ready [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+html.ready [data-delay="100"] { transition-delay: 100ms; }
+html.ready [data-delay="200"] { transition-delay: 200ms; }
+html.ready [data-delay="300"] { transition-delay: 300ms; }
+html.ready [data-delay="400"] { transition-delay: 400ms; }
+html.ready [data-delay="500"] { transition-delay: 500ms; }
+html.ready [data-delay="600"] { transition-delay: 600ms; }
+html.ready [data-delay="700"] { transition-delay: 700ms; }
+html.ready [data-delay="800"] { transition-delay: 800ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  html.ready [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────
+   GRAIN TEXTURE — adds organic depth to hero section
+───────────────────────────────────────────────────────────── */
+.grain::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 6;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.78' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)'/%3E%3C/svg%3E");
+  opacity: 0.032;
+  mix-blend-mode: overlay;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   NAV LINK — sliding underline on hover / active
+───────────────────────────────────────────────────────────── */
+.nav-link {
+  position: relative;
+}
+.nav-link::after {
+  content: '';
+  position: absolute;
+  bottom: -3px;
+  left: 0;
+  width: 0;
+  height: 1px;
+  background-color: currentColor;
+  transition: width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CATALOG CARDS — hover effects
+───────────────────────────────────────────────────────────── */
+.catalog-card .cat-img {
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.catalog-card:hover .cat-img {
+  transform: scale(1.07);
+}
+.catalog-card .cat-overlay {
+  transition: background-color 0.5s ease;
+}
+.catalog-card:hover .cat-overlay {
+  background-color: rgba(26, 10, 4, 0.28);
+}
+.catalog-card .cat-arrow {
+  opacity: 0;
+  transform: translateX(-10px);
+  transition: opacity 0.3s ease, transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.catalog-card:hover .cat-arrow {
+  opacity: 1;
+  transform: translateX(0);
+}
+.catalog-card .cat-title {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.catalog-card:hover .cat-title {
+  transform: translateY(-4px);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   STEP CARDS — hover elevation
+───────────────────────────────────────────────────────────── */
+.step-card {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.4s ease;
+}
+.step-card:hover {
+  transform: translateY(-8px);
+  box-shadow: 0 28px 64px rgba(26, 10, 4, 0.18);
+}
+.step-card .step-icon-box {
+  transition: background-color 0.3s ease, transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.step-card:hover .step-icon-box {
+  background-color: #7A4F35;
+  transform: scale(1.06);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   HOURS TABLE ROWS
+───────────────────────────────────────────────────────────── */
+.hours-row {
+  border-left: 3px solid transparent;
+  transition: background-color 0.15s ease, border-left-color 0.2s ease;
+}
+.hours-row.hoverable:hover {
+  border-left-color: #B8845C;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   CONTACT CARDS
+───────────────────────────────────────────────────────────── */
+.contact-card {
+  transition: background-color 0.25s ease, transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.contact-card:hover {
+  background-color: #5C2E14;
+  transform: translateX(4px);
+}
+
+/* ─────────────────────────────────────────────────────────────
+   ABOUT — foto flotante + pulse al terminar contador
+───────────────────────────────────────────────────────────── */
+@keyframes float-subtle {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-10px); }
+}
+.about-float {
+  animation: float-subtle 5s ease-in-out infinite;
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.about-float:hover {
+  animation-play-state: paused;
+  transform: scale(1.03);
+}
+
+.stat-item {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  cursor: default;
+}
+.stat-item:hover {
+  transform: translateY(-6px);
+}
+
+@keyframes stat-pulse {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.14); }
+  70%  { transform: scale(0.97); }
+  100% { transform: scale(1); }
+}
+.stat-done {
+  animation: stat-pulse 0.55s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   LEGAL PAGES — typographic content styles
+───────────────────────────────────────────────────────────── */
+.legal-content h2 {
+  @apply font-playfair text-2xl text-wood-800 mt-10 mb-4 leading-snug;
+  border-left: 3px solid theme('colors.wood.600');
+  padding-left: 1rem;
+}
+.legal-content h3 {
+  @apply font-playfair text-lg text-wood-700 mt-6 mb-2;
+}
+.legal-content p {
+  @apply font-lato text-wood-700 text-sm leading-relaxed mb-4;
+}
+.legal-content ul {
+  @apply font-lato text-wood-700 text-sm leading-relaxed mb-4 space-y-1.5;
+  list-style: disc;
+  padding-left: 1.5rem;
+}
+.legal-content li {
+  @apply leading-relaxed;
+}
+.legal-content a {
+  @apply text-wood-600 underline underline-offset-2 hover:text-wood-400 transition-colors;
+}
+.legal-content strong {
+  @apply font-semibold text-wood-800;
+}
+.legal-content table {
+  @apply w-full font-lato text-sm mb-6 border-collapse;
+}
+.legal-content th {
+  @apply text-left font-semibold text-wood-800 text-xs tracking-widest uppercase bg-wood-100 px-4 py-3 border border-wood-200;
+}
+.legal-content td {
+  @apply text-wood-700 px-4 py-3 border border-wood-200 align-top;
+}
+.legal-content tr:nth-child(even) td {
+  @apply bg-cream-100;
+}
+
+/* ─────────────────────────────────────────────────────────────
+   FLOATING WHATSAPP — tooltip reveal
+───────────────────────────────────────────────────────────── */
+.fab-tooltip {
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transform: translateX(10px);
+  transition: opacity 0.2s ease, transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.fab-wrapper:hover .fab-tooltip {
+  opacity: 1;
+  transform: translateX(0);
+}
